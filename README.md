@@ -61,7 +61,7 @@ I'll use subnet 192.168.11.0/24 here. Change everywhere if you intent to use som
 
 ```
 # apnet=192.168.11
-# ip ad addr $apnet.1/24 dev $ap
+# ip addr add $apnet.1/24 dev $ap
 # dnsmasq --interface=$ap --dhcp-range=$apnet.100,$apnet.199
 ```
 
@@ -139,6 +139,21 @@ Redirect HTTPS (TCP port 443) to mitmproxy:
 # iptables -t nat -A PREROUTING -i $ap -p tcp --dport 443 -j REDIRECT --to-port 8080
 ```
 
+### mitmproxy tricks
+
+#### Scripts (oS)
+- `/usr/share/doc/mitmproxy/examples/upsidedownternet.py`  Very useful for apps (quickly *visible* where content is downloaded with plain HTTP)!
+- `/usr/share/doc/mitmproxy/examples/sslstrip.py`
+
+#### HTML replacements (oR):
+
+| Filter       | Regex     | Replacement |
+| ------------ | --------- | ----------- |
+| `~b </head>` | `</head>` | `<style>body {transform: scaleY(-1);}</style></head>` |
+
+
+## Presentation slides:
+<https://docs.google.com/presentation/d/1gxFvaWnkpqjU_eYIqxC9gFBeGavvNM4QLMiB1VmcnKI/edit?usp=sharing>
 
 ## Resources:
 - <https://wiki.archlinux.org/index.php/software_access_point>
